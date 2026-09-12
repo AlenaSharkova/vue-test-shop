@@ -1,0 +1,52 @@
+:root {
+  --bg-primary: #e5deea;
+  --bg-secondary: #d9f3f3;
+  --color-text-primary: #2c2e33;
+  --color-text-light: #77787a;
+
+  --bg-accent: #a6632a;
+  --color-text-accent: #ecd3c2;
+
+  --bg-action: #4469dd;
+  --color-text-action: #d9e0f8;
+
+  --color-danger: #c23b3b;
+  --border-base: #d1d4d9;
+
+  --box-shadow-primary: 4px 2px 8px 0 color-mix(in srgb, var(--border-base) 60%, white 40%);
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
