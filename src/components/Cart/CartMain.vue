@@ -2,11 +2,16 @@
 import {computed, type PropType} from "vue";
 import type {ICartDisplayItem} from "@/struct";
 import {convertToRub} from "@/utils";
+import {useMarketSignals} from "@/composables/useMarketSignals";
 import CartItem from "@/components/Cart/CartItem.vue";
 
 const props = defineProps({
   cartList: {
     type: Object as PropType<ICartDisplayItem[]>,
+    required: true,
+  },
+  cartTotalUsd: {
+    type: Number,
     required: true,
   }
 })
@@ -18,12 +23,9 @@ const emits = defineEmits<{
   (e: 'set-amount-product', id: number, groupId: number, quantity: number): void;
 }>();
 
-const totalPrice = computed(() => {
-  const totalUsd = props.cartList.reduce((acc: number, item: ICartDisplayItem) => {
-    return item.priceUsd * item.quantity + acc;
-  }, 0)
-  return convertToRub(totalUsd);
-})
+const {usdRate} = useMarketSignals();
+
+const totalPrice = computed(() => toRub(props.cartTotalUsd, usdRate.value));
 
 const deleteFromCart = (productId: number, groupId: number) => {
   emits('delete-from-cart', productId, groupId)

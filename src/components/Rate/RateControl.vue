@@ -139,12 +139,3 @@ const onRateChange = () => {
   }
 }
 </style>
-
-
-width: 70px;
-height: 30px;
-background: var(--bg-secondary);
-border: 1px solid var(--bg-accent);
-border-radius: 5px;
-box-shadow: var(--box-shadow-primary);
-font-size: 20px;

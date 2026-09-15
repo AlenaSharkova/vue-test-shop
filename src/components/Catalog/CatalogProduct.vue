@@ -2,6 +2,7 @@
 import {computed, type PropType} from "vue";
 import type {ICatalogProduct} from "@/struct";
 import {convertToRub} from "@/utils";
+import {useMarketSignals} from "@/composables/useMarketSignals";
 
 const props = defineProps({
   product: {
@@ -13,11 +14,13 @@ const emits = defineEmits<{
   (e: 'add-to-cart'): void;
 }>();
 
+const {usdRate, priceTrend} = useMarketSignals();
+
+const isGoodsStock = computed(() => props.product.available <= 0)
+
 const addToCart = () => {
   emits('add-to-cart')
 }
-
-const isGoodsStock = computed(() => props.product.available <= 0)
 </script>
 
 <template>
@@ -25,17 +28,16 @@ const isGoodsStock = computed(() => props.product.available <= 0)
     <div class="catalog-product__wrapper">
       <div class="catalog-product__name">
         <span>{{product.name}}</span>
-        priceTrend: {{product.priceTrend}}
         <span class="product-available"> ({{product.available}} шт.)</span>
       </div>
       <div
           class="catalog-product__price"
           :class="{
-            'catalog-product__price--up': product.priceTrend === 'up',
-            'catalog-product__price--down': product.priceTrend === 'down'
+            'catalog-product__price--up': priceTrend === 'up',
+            'catalog-product__price--down': priceTrend === 'down'
           }"
       >
-        <span>{{convertToRub(product.priceUsd)}}</span>
+        <span>{{convertToRub(product.priceUsd, usdRate)}}</span>
       </div>
       <div class="catalog-product__add">
         <button

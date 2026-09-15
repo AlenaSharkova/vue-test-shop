@@ -1,12 +1,5 @@
-import {inject} from "vue";
-import {UsdRateKey} from "@/struct";
-
-export function convertToRub(priceUsd: number): string {
-    const rate = inject(UsdRateKey);
-
-    const currentRate = rate ? rate.value : 65;
-
-    return formatToRub(priceUsd * currentRate);
+export function convertToRub(priceUsd: number, rate: number): string {
+    return formatToRub(priceUsd * rate);
 }
 
 export function formatToRub(totalPriceRub: number): string {

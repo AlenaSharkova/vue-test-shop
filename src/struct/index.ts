@@ -38,7 +38,6 @@ export interface ICatalogProduct {
     name: string;
     priceUsd: number;
     available: number;
-    priceTrend?: 'up' | 'down' | null;
 }
 
 export interface ICatalogGroup {
@@ -59,9 +58,9 @@ export interface ICartDisplayItem {
     name: string;
     categoryName: string;
     priceUsd: number;
-    priceTrend?: 'up' | 'down' | null;
     available: number;
     quantity: number;
 }
 
-    export const UsdRateKey = Symbol() as InjectionKey<Ref<number>>;
+export const UsdRateKey = Symbol() as InjectionKey<Ref<number>>;
+export const PriceTrendKey = Symbol() as InjectionKey<Ref<'up' | 'down' | null>>;

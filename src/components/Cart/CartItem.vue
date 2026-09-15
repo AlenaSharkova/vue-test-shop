@@ -4,6 +4,7 @@ import {computed, ref, watch} from "vue";
 import type {ICartDisplayItem} from "@/struct";
 import BaseIcon from "@/components/Base/BaseIcon.vue";
 import {convertToRub} from "@/utils";
+import {useMarketSignals} from "@/composables/useMarketSignals";
 
 const props = defineProps({
   product: {
@@ -72,6 +73,8 @@ const onQuantityChange = () => {
   isInvalidInput.value = false;
   emits('set-amount-product', props.product.id, props.product.groupId, clamped);
 }
+
+const {usdRate, priceTrend} = useMarketSignals();
 </script>
 
 <template>
@@ -117,11 +120,11 @@ const onQuantityChange = () => {
     <div
         class="cart-item__price"
         :class="{
-          '--up': product.priceTrend === 'up',
-          '--down': product.priceTrend === 'down'
+          '--up': priceTrend === 'up',
+          '--down': priceTrend === 'down'
         }"
     >
-      <span>{{convertToRub(product.priceUsd)}}/шт.</span>
+      <span>{{convertToRub(product.priceUsd, usdRate)}}/шт.</span>
     </div>
     <div class="cart-item__delete">
       <BaseIcon name="delete" @click="deleteFromCart" />
